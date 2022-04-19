@@ -1,0 +1,93 @@
+var drawHead= function (x,y,bitheight)
+{
+    noStroke();
+ fill(199, 131, 59);
+ ellipse(x+(100*bitheight/100), y, 100*bitheight/100, 121*bitheight/100);//head 
+ fill(245, 235, 235);
+ ellipse(x+(78*bitheight/100),y-(12*bitheight/100),28*bitheight/100,17*bitheight/100);//leftEye
+ ellipse(x+(121*bitheight/100),y-(12*bitheight/100),28*bitheight/100,17*bitheight/100);//rightEye
+ fill(5, 4, 4);
+ellipse(x+(78*bitheight/100),y-(12*bitheight/100),11*bitheight/100,9*bitheight/100);//leftpupil
+ellipse (x+(120*bitheight/100),y-(12*bitheight/100),11*bitheight/100,9*bitheight/100);//rightpupil
+
+};
+var drawdets= function(x,y,bitheight) {
+stroke(0, 0, 0);
+fill(199, 131, 59);
+bezier(x+(96*bitheight/100),y+(10*bitheight/100),x+(95*bitheight/100),
+y+(12*bitheight/100),x+(142*bitheight/100),y+(20*bitheight/100),x+(101*bitheight/100),y+1*bitheight/100);//nose
+ellipse (x+(100*bitheight/100),y+(30*bitheight/100),17*bitheight/100,0*bitheight/100);//mouth
+fill(20, 20, 20);
+ellipse(x+(51*bitheight/100),y-(43*bitheight/100),42*bitheight/100,42*bitheight/100);
+ellipse(x+(77*bitheight/100),y-(59*bitheight/100),42*bitheight/100,42*bitheight/100);
+ellipse(x+(92*bitheight/100),y-(66*bitheight/100),42*bitheight/100,42*bitheight/100);
+ellipse(x+117*bitheight/100,y-62*bitheight/100,42*bitheight/100,42*bitheight/100);
+ellipse(x+144*bitheight/100,y-48*bitheight/100,42*bitheight/100,42*bitheight/100);//hair 
+        
+  };
+var drawShirt= function(x,y,bitheight){
+    fill(41, 36, 36);
+     quad(x+192*bitheight/100,y+129*bitheight/100,x+136*bitheight/100,y+59*bitheight           /100,x+63*bitheight/100,y+60*bitheight/100,x+16*bitheight/100,y+130*bitheight          /100);
+    fill(237, 14, 14);
+    textSize(50*bitheight/100);
+    text("AM",x+62*bitheight/100,y+14*bitheight/100);
+};
+var drawBit= function(x,y,bitheight){
+    drawHead(x,y,bitheight);
+    drawShirt(x,y,bitheight);
+    drawdets(x,y,bitheight);
+};
+
+var currentScene=1;
+
+var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+
+Button.prototype.draw = function() {
+    fill(255, 255, 255);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+-5);
+};
+
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+var startButton = new Button({
+    x: 130,
+    y: 300,
+    label: "        Start",
+    onClick: function() {
+        currentScene++;
+    }
+});
+
+var Splash = function(){
+    currentScene = 1;
+background(84, 188, 217);
+    fill(255, 255, 255);
+    textSize(39);
+    text("Flappy Bit", 104, 67);
+    startButton.draw();
+    drawBit(58,156,58);
+};
+
+Splash();
