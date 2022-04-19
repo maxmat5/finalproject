@@ -1,3 +1,84 @@
+var drawBitmoji = function (bitmojiX,bitmojiY, bitmojiHeight) {
+var drawFace = function (bitmojiX, bitmojiY, bitmojiHeight) {
+
+
+noStroke();
+
+
+
+
+
+// head
+fill(255, 224, 189);
+ellipse( bitmojiX-(bitmojiHeight/100), bitmojiY-(bitmojiHeight/100), 87 * bitmojiHeight/100, 100 * bitmojiHeight/100 );
+
+
+
+
+// right eye
+fill(0, 0, 0);
+ellipse(bitmojiX+17 * bitmojiHeight/100, bitmojiY-1 * bitmojiHeight/100,20 * bitmojiHeight/100,15 * bitmojiHeight/100);
+
+// right pupil
+fill(247, 247, 247);
+ellipse(bitmojiX+17 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100, 15 * bitmojiHeight/100, 10 * bitmojiHeight/100);
+fill(99, 57, 15);
+ellipse(bitmojiX+17 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,6 * bitmojiHeight/100,6 * bitmojiHeight/100);
+
+// left eye
+fill(0, 0, 0);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,20 * bitmojiHeight/100,15 * bitmojiHeight/100);
+
+// left pupil
+fill(247, 247, 247);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100, 15 * bitmojiHeight/100, 10 * bitmojiHeight/100);
+fill(99, 57, 15);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,6 * bitmojiHeight/100,6 * bitmojiHeight/100);
+
+// nose
+fill(0, 0, 0);
+bezier(bitmojiX- (bitmojiHeight/100), bitmojiY- (bitmojiHeight/100), bitmojiX+21 * bitmojiHeight/100, bitmojiY+22 * bitmojiHeight/100, bitmojiX-8 * bitmojiHeight/100 , bitmojiY+20 * bitmojiHeight/100 ,bitmojiX-4 * bitmojiHeight/100,bitmojiY+15 * bitmojiHeight/100);
+
+// mouth
+fill(255, 255, 255);
+arc(bitmojiX -1 * bitmojiHeight/100, bitmojiY+27 * bitmojiHeight/100, 35 * bitmojiHeight/100, 13* bitmojiHeight/100, 1, 170);
+fill(0, 0, 0);
+
+
+// hat
+fill(0, 0, 0);
+rect(bitmojiX-42 * bitmojiHeight/100, bitmojiY-67 * bitmojiHeight/100, 84 * bitmojiHeight/100, 50 * bitmojiHeight/100, 100 * bitmojiHeight/100);
+
+fill(255, 0, 0);
+textSize(25);
+   text("MM",bitmojiX+-26*bitmojiHeight/100,bitmojiY+-61*bitmojiHeight/100);
+
+};
+
+
+var drawBeanie = function (bitmojiX , bitmojiY, bitmojiHeight) {
+// beanie
+fill(255, 0, 0);
+
+
+triangle (bitmojiX - (bitmojiHeight/100), bitmojiY - (bitmojiHeight/100*98), bitmojiX + 37 * bitmojiHeight/100, bitmojiY - 57 * bitmojiHeight/100, bitmojiX - 38 * bitmojiHeight/100, bitmojiY- 57 * bitmojiHeight/100);
+
+fill(0, 0, 0);
+
+ellipse(bitmojiX - ( bitmojiHeight/100), bitmojiY - 98 * bitmojiHeight/100,20 * bitmojiHeight/100,20 * bitmojiHeight/100);
+
+
+
+
+};
+
+drawBeanie(bitmojiX , bitmojiY, bitmojiHeight);
+drawFace(bitmojiX , bitmojiY, bitmojiHeight );
+
+
+
+};
+
 var drawHead= function (x,y,bitheight)
 {
     noStroke();
@@ -30,7 +111,7 @@ var drawShirt= function(x,y,bitheight){
      quad(x+192*bitheight/100,y+129*bitheight/100,x+136*bitheight/100,y+59*bitheight           /100,x+63*bitheight/100,y+60*bitheight/100,x+16*bitheight/100,y+130*bitheight          /100);
     fill(237, 14, 14);
     textSize(50*bitheight/100);
-    text("AM",x+62*bitheight/100,y+14*bitheight/100);
+    text("AM",x+62*bitheight/100,y+62*bitheight/100);
 };
 var drawBit= function(x,y,bitheight){
     drawHead(x,y,bitheight);
@@ -55,7 +136,7 @@ Button.prototype.draw = function() {
     fill(0, 0, 0);
     textSize(19);
     textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+-5);
+    text(this.label, this.x+10, this.y+11);
 };
 
 Button.prototype.isMouseInside = function() {
@@ -73,7 +154,7 @@ Button.prototype.handleMouseClick = function() {
 
 var startButton = new Button({
     x: 130,
-    y: 300,
+    y: 291,
     label: "        Start",
     onClick: function() {
         currentScene++;
@@ -88,6 +169,7 @@ background(84, 188, 217);
     text("Flappy Bit", 104, 67);
     startButton.draw();
     drawBit(58,156,58);
+    drawBitmoji(298,190,80);
 };
 
 Splash();
