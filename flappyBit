@@ -115,17 +115,17 @@ var bit = function(x, y) {
 bit.prototype.draw = function() {
     fill(186, 44, 44);
     this.y = constrain(this.y, 0, height-50);
-   drawBit(this.x, this.y, 22, 25);
+   drawBit(this.x, this.y, 16, 25);
    
 };
 
 bit.prototype.flap = function() {
-    this.y -= 7;
+    this.y -= 4;
 };
 
 bit.prototype.fall = function() {
     this.img = getImage("creatures/Hopper-Happy");
-    this.y += 5;
+    this.y += 4;
 };
 
 /*bit.prototype.checkForStickGrab = function(pipe) {
@@ -141,6 +141,13 @@ bit.prototype.checkForPipes = function(pipe) {
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
         score++;
     }
+};
+bit.prototype.checkForPipes = function(pipe) {
+    if((pipe.x>=this.x && pipe.x<= (this.x +50)) &&
+    (pipe.y<=this.y && pipe.y<= (400-this.y))) {
+        score++;
+    }
+    
 };
 
 var Pipes = function(x, y) { 
@@ -159,7 +166,7 @@ fill(38, 255, 0);
 rect(this.x, 400, 45,-this.y);
 };   
 
-var bit = new bit(15, 120);
+var bit = new bit(15, 90);
 
 var pipes = [];
 for (var i = 0; i < numPipes; i++) {  
@@ -173,6 +180,49 @@ var drawGame = function() {
     // static
     background(114, 197, 242);
     fill(88, 90, 99);
+    noStroke();
+fill(255, 255, 255);
+ellipse(67,60,55,53);
+ellipse(103,84,53,53);
+ellipse(70,87,62,53);
+ellipse(34,84,55,53);
+
+ellipse(252,60,55,53);
+ellipse(221,84,53,53);
+ellipse(280,87,62,53);
+ellipse(251,99,55,53);
+
+ellipse(315,171,53,53);
+ellipse(341,151,51,53);
+ellipse(355,172,54,53);
+
+
+fill(18, 23, 17);
+rect(197,281,64,120);
+fill(237, 214, 9);
+rect(211,301,5,8);
+rect(228,301,5,8);
+rect(244,301,5,8);
+
+rect(211,318,5,8);
+rect(228,318,5,8);
+rect(244,318,5,8);
+
+rect(211,335,5,8);
+rect(228,335,5,8);
+rect(244,335,5,8);
+
+rect(211,351,5,8);
+rect(228,351,5,8);
+rect(244,351,5,8);
+
+rect(211,367,5,8);
+rect(228,367,5,8);
+rect(244,367,5,8);
+
+rect(226,392,5,8);
+rect(231,392,5,8);
+
     rectMode(CORNER);
     // draw edge of lower road
  
@@ -185,9 +235,9 @@ var drawGame = function() {
         pipes[i].x -= 1;
     }
     
-    fill(255, 255, 255);
+    fill(20, 17, 20);
     textSize(18);
-    text("Score: " + score, 20, 30);
+    text("Score: " + round(score/50), 20, 30);
     
     
     if (keyIsPressed && keyCode === 0) {
@@ -195,7 +245,7 @@ var drawGame = function() {
     } else {
         bit.fall();
     }
-    bit.draw();
+    bit.draw();  
 }; 
 
 draw= function() {
@@ -209,4 +259,6 @@ mouseClicked=function()
 };
 
 Splash();
+
+
 
