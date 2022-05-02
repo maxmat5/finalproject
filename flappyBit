@@ -30,7 +30,7 @@ var drawShirt= function(x,y,bitheight){
      quad(x+192*bitheight/100,y+129*bitheight/100,x+136*bitheight/100,y+59*bitheight           /100,x+63*bitheight/100,y+60*bitheight/100,x+16*bitheight/100,y+130*bitheight          /100);
     fill(237, 14, 14);
     textSize(50*bitheight/100);
-    text("AM",x+62*bitheight/100,y+14*bitheight/100);
+    text("AM",x+62*bitheight/100,y+64*bitheight/100);
 };
 var drawBit= function(x,y,bitheight){
     drawHead(x,y,bitheight);
@@ -38,8 +38,83 @@ var drawBit= function(x,y,bitheight){
     drawdets(x,y,bitheight);
 };
 
-var drawPipes = function(){ 
+
+var drawBitmoji = function (bitmojiX,bitmojiY, bitmojiHeight) { 
+
+
+var drawFace = function (bitmojiX, bitmojiY, bitmojiHeight) {
+
+
 noStroke();
+// head
+fill(255, 224, 189);
+ellipse( bitmojiX-(bitmojiHeight/100), bitmojiY-(bitmojiHeight/100), 87 * bitmojiHeight/100, 100 * bitmojiHeight/100 );
+
+
+
+
+// right eye
+fill(0, 0, 0);
+ellipse(bitmojiX+17 * bitmojiHeight/100, bitmojiY-1 * bitmojiHeight/100,20 * bitmojiHeight/100,15 * bitmojiHeight/100);
+
+// right pupil
+fill(247, 247, 247);
+ellipse(bitmojiX+17 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100, 15 * bitmojiHeight/100, 10 * bitmojiHeight/100);
+fill(99, 57, 15);
+ellipse(bitmojiX+17 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,6 * bitmojiHeight/100,6 * bitmojiHeight/100);
+
+// left eye
+fill(0, 0, 0);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,20 * bitmojiHeight/100,15 * bitmojiHeight/100);
+
+// left pupil
+fill(247, 247, 247);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100, 15 * bitmojiHeight/100, 10 * bitmojiHeight/100);
+fill(99, 57, 15);
+ellipse(bitmojiX-20 * bitmojiHeight/100,bitmojiY-1 * bitmojiHeight/100,6 * bitmojiHeight/100,6 * bitmojiHeight/100);
+
+// nose
+fill(0, 0, 0);
+bezier(bitmojiX- (bitmojiHeight/100), bitmojiY- (bitmojiHeight/100), bitmojiX+21 * bitmojiHeight/100, bitmojiY+22 * bitmojiHeight/100, bitmojiX-8 * bitmojiHeight/100 , bitmojiY+20 * bitmojiHeight/100 ,bitmojiX-4 * bitmojiHeight/100,bitmojiY+15 * bitmojiHeight/100);
+
+// mouth
+fill(255, 255, 255);
+arc(bitmojiX -1 * bitmojiHeight/100, bitmojiY+27 * bitmojiHeight/100, 35 * bitmojiHeight/100, 13* bitmojiHeight/100, 1, 170);
+fill(0, 0, 0);
+
+// hat
+fill(0, 0, 0);
+rect(bitmojiX-42 * bitmojiHeight/100, bitmojiY-67 * bitmojiHeight/100, 84 * bitmojiHeight/100, 50 * bitmojiHeight/100, 100 * bitmojiHeight/100);
+fill(255, 0, 0);
+text("MM", 259,194,23,23);
+};
+
+
+var drawBeanie = function (bitmojiX , bitmojiY, bitmojiHeight) {
+// beanie
+fill(255, 0, 0);
+triangle (bitmojiX - (bitmojiHeight/100), bitmojiY - (bitmojiHeight/100*98), bitmojiX + 37 * bitmojiHeight/100, bitmojiY - 57 * bitmojiHeight/100, bitmojiX - 38 * bitmojiHeight/100, bitmojiY- 57 * bitmojiHeight/100);
+
+fill(0, 0, 0);
+
+ellipse(bitmojiX - ( bitmojiHeight/100), bitmojiY - 98 * bitmojiHeight/100,20 * bitmojiHeight/100,20 * bitmojiHeight/100);
+
+};
+
+drawBeanie(bitmojiX , bitmojiY, bitmojiHeight);
+drawFace(bitmojiX , bitmojiY, bitmojiHeight );
+
+
+
+}; //draws bitmoji
+
+var numPipes = 100;
+var score = 0;
+var currentScene= 0;
+var gameOver = 0; //0 = game still playing, 1 = game stops
+
+var drawPipes = function(){ 
+
 
 fill(38, 255, 0);
 rect(293, 0, 45, 150);
@@ -48,7 +123,7 @@ fill(38, 255, 0);
 rect(293, 400, 45,-150);
 };
  
-var currentScene=1;
+
 
 var Button = function(config) {
     this.x = config.x || 0;
@@ -65,7 +140,7 @@ Button.prototype.draw = function() {
     fill(0, 0, 0);
     textSize(19);
     textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+-5);
+    text(this.label, this.x+8, this.y+13);
 };
 
 Button.prototype.isMouseInside = function() {
@@ -86,29 +161,53 @@ var startButton = new Button({
     y: 300,
     label: "        Start",
     onClick: function() {
-        currentScene++;
+      
+        currentScene = 1;
     }
 });
 
+var tryAgainButton = new Button ({
+    x: 130,
+    y: 167,
+    label: "    Try Again?",
+    onClick: function() {
+        currentScene = 0;
+        
+    }
+        });
 var Splash = function(){
-    currentScene = 1;
-background(84, 188, 217);
+    currentScene = 0;
+    background(84, 188, 217);
     fill(255, 255, 255);
     textSize(39);
     text("Flappy Bit", 104, 67);
     startButton.draw();
     drawBit(98,204,39);
+    drawBitmoji(276,229,55);
+
 };
 
 
-var numPipes = 100;
-var score = 0;
+var tryAgain = function(){
+    currentScene = 2;
+    background(84, 188, 217);
+    fill(255, 255, 255);
+    textSize(39);
+    text("Game Over", 100, 67);
+    textSize(29);
+    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 34, 256);
+    tryAgainButton.draw();
+   
+    };
+
+
+
 
 
 var bit = function(x, y) {
     this.x = x;
     this.y = y;
-   this.img = drawBit;  
+    this.img = drawBit;  
     this.sticks = 0;
 };
 
@@ -124,31 +223,36 @@ bit.prototype.flap = function() {
 };
 
 bit.prototype.fall = function() {
-    this.img = getImage("creatures/Hopper-Happy");
+    
     this.y += 4;
 };
 
-/*bit.prototype.checkForStickGrab = function(pipe) {
-if ((pipe.x >= this.x && pipe.x <= (this.x + 15)) &&
-        (pipe.y >= this.y && pipe.y <= (this.y + 10))) {
-        pipe.y = -400;
-        score++;
-    }
-};*/
 
-bit.prototype.checkForPipes = function(pipe) {
+bit.prototype.checkForPipeScore = function(pipe) {
     if((pipe.x>=this.x && pipe.x<= (this.x +50)) &&
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
-        score++;
+      score++;
     }
 };
-bit.prototype.checkForPipes = function(pipe) {
-    if((pipe.x>=this.x && pipe.x<= (this.x +50)) &&
-    (pipe.y<=this.y && pipe.y<= (400-this.y))) {
-        score++;
+
+
+
+bit.prototype.checkForPipeTouch = function(pipe) {    
+    if ((this.x >= (pipe.x - 10) && this.x <= (pipe.x  + 30 )) &&
+        (this.y >= (pipe.y  - 10)  && this.y <= (pipe.y  + 30))) {
+ gameOver = 1;
+currentScene = 2;
+   
     }
+};
+
+
+
+
+
+
+
     
-};
 
 var Pipes = function(x, y) { 
     this.x = x;
@@ -157,7 +261,7 @@ var Pipes = function(x, y) {
 };
 
 Pipes.prototype.draw = function() {
-    noStroke();
+   
 
 fill(38, 255, 0);
 rect(this.x, 0, 45, this.y);
@@ -166,14 +270,15 @@ fill(38, 255, 0);
 rect(this.x, 400, 45,-this.y);
 };   
 
-var bit = new bit(15, 90);
-
+var bit = new bit(15, 90, 100);
+  
 var pipes = [];
 for (var i = 0; i < numPipes; i++) {  
     pipes.push(new Pipes(i * 150 + 100, random(50, 175)));
 
 
 } 
+
 
 var drawGame = function() {
     
@@ -231,7 +336,8 @@ rect(231,392,5,8);
     
     for (var i = 0; i < pipes.length; i++) {
         pipes[i].draw();
-        bit.checkForPipes(pipes[i]);
+        bit.checkForPipeTouch(pipes[i]);
+        bit.checkForPipeScore(pipes[i]);
         pipes[i].x -= 1;
     }
     
@@ -240,25 +346,31 @@ rect(231,392,5,8);
     text("Score: " + round(score/50), 20, 30);
     
     
-    if (keyIsPressed && keyCode === 0) {
+    if (keyIsPressed && keyCode === 0) {   
         bit.flap();
     } else {
         bit.fall();
     }
     bit.draw();  
-}; 
 
-draw= function() {
-    if ( currentScene===1){Splash();}
-    else{drawGame();}
-};
 
-mouseClicked=function()
-{
-  startButton.handleMouseClick();
-};
+    }; 
 
-Splash();
+
+draw = function() {
+     if (currentScene === 0 ) {
+         Splash();
+     }
+    if (currentScene === 1 && gameOver === 0) {
+        
+        drawGame();
+    }
+
+      if (currentScene === 2 && gameOver === 1) {
+        tryAgain();
+        
+    }
+  };
 
 
 
