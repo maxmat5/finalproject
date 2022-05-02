@@ -111,7 +111,7 @@ drawFace(bitmojiX , bitmojiY, bitmojiHeight );
 var numPipes = 100;
 var score = 0;
 var currentScene= 0;
-var gameOver = 0; //0 = game still playing, 1 = game stops
+var gameOver = 0; //0 = game needs to start, 1 = gameplay, 2 = game stops
 
 var drawPipes = function(){ 
 
@@ -161,7 +161,7 @@ var startButton = new Button({
     y: 300,
     label: "        Start",
     onClick: function() {
-      
+        gameOver = 1;
         currentScene = 1;
     }
 });
@@ -171,6 +171,7 @@ var tryAgainButton = new Button ({
     y: 167,
     label: "    Try Again?",
     onClick: function() {
+        gameOver = 0;
         currentScene = 0;
         
     }
@@ -240,7 +241,7 @@ bit.prototype.checkForPipeScore = function(pipe) {
 bit.prototype.checkForPipeTouch = function(pipe) {    
     if ((this.x >= (pipe.x - 10) && this.x <= (pipe.x  + 30 )) &&
         (this.y >= (pipe.y  - 10)  && this.y <= (pipe.y  + 30))) {
- gameOver = 1;
+ gameOver = 2;
 currentScene = 2;
    
     }
@@ -358,17 +359,17 @@ rect(231,392,5,8);
 
 
 draw = function() {
-     if (currentScene === 0 ) {
+     if (currentScene === 0 && gameOver === 0) {
          Splash();
      }
-    if (currentScene === 1 && gameOver === 0) {
+    if (currentScene === 1 && gameOver === 1) {
         
         drawGame();
     }
 
-      if (currentScene === 2 && gameOver === 1) {
+      if (currentScene === 2 && gameOver === 2) {
         tryAgain();
-        
+       
     }
   };
 
