@@ -236,8 +236,7 @@ bit.prototype.checkForPipeScore = function(pipe) {
 
 
 bit.prototype.checkForPipeTouch = function(pipe) {    
-    if ((pipe.x>=this.x && pipe.x<= (this.x -50)) &&
-    (pipe.y<=this.y && pipe.y<= (400+this.y))) {
+    if ((this.x >= (pipe.x - 10) && this.x <= (pipe.x + 45)) && (this.y >= (pipe.y - 5)) && this.y <= (pipe.y + 150)) {
 currentScene = 2;
    
     }
