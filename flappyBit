@@ -30,7 +30,7 @@ var drawShirt= function(x,y,bitheight){
      quad(x+192*bitheight/100,y+129*bitheight/100,x+136*bitheight/100,y+59*bitheight           /100,x+63*bitheight/100,y+60*bitheight/100,x+16*bitheight/100,y+130*bitheight          /100);
     fill(237, 14, 14);
     textSize(50*bitheight/100);
-    text("AM",x+62*bitheight/100,y+64*bitheight/100);
+    text("AM",x+62*bitheight/100,y+13*bitheight/100);
 };
 var drawBit= function(x,y,bitheight){
     drawHead(x,y,bitheight);
@@ -140,7 +140,7 @@ Button.prototype.draw = function() {
     fill(0, 0, 0);
     textSize(19);
     textAlign(LEFT, TOP);
-    text(this.label, this.x+8, this.y+13);
+    text(this.label, this.x+8, this.y+-9);
 };
 
 Button.prototype.isMouseInside = function() {
@@ -170,10 +170,12 @@ currentScene = 1;
      
 var Splash = function(){
     currentScene = 0;
-    background(84, 188, 217);
+    background(114, 197, 242);
     fill(255, 255, 255);
     textSize(39);
-    text("Flappy Bit", 104, 67);
+    text("Flappy Bit", 120, 6);
+     textSize(16);
+    text("Move through the pipes without touching them! ",44,107);
     startButton.draw();
     drawBit(98,204,39);
     drawBitmoji(276,229,55);
@@ -183,16 +185,14 @@ var Splash = function(){
 
 var tryAgain = function(){
     currentScene = 2;
-    background(84, 188, 217);
+    background(114, 197, 242);
     fill(255, 255, 255);
     textSize(39);
-    text("Game Over", 100, 144);
+    text("Game Over!",100, 50);
     textSize(29);
-    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 27, 202);
+    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 27, 121);
     text("Try Again?", 85, 325);  
-    fill(255, 255, 255);
-      line(147,361,147,381);
-    triangle(163,379,133,379,147,389);
+  
   
 
    
@@ -212,7 +212,7 @@ var bit = function(x, y) {
 bit.prototype.draw = function() {
     fill(186, 44, 44);
     this.y = constrain(this.y, 0, height-50);
-   drawBit(this.x, this.y, 16, 25);
+   drawBit(this.x, this.y, 15, 25);
    
 };
 
@@ -231,18 +231,11 @@ bit.prototype.checkForPipeScore = function(pipe) {
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
       score++;
     }
-};
-
-
-
-bit.prototype.checkForPipeTouch = function(pipe) {    
-    if ((this.x >= (pipe.x - 10) && this.x <= (pipe.x + 45)) && (this.y >= (pipe.y - 5)) && this.y <= (pipe.y + 150)) {
-currentScene = 2;
+     else if((this.x>=pipe.x  && this.x<= pipe.x+45) && (pipe.y<this.y && pipe.y> (400-this.y))) { currentScene = 2; } 
    
-    }
+    else if((this.x>=pipe.x  && this.x<= pipe.x+45) && (pipe.y>this.y && pipe.y< (400-this.y))) {currentScene = 2; } 
+    
 };
-
-
 
 
 
@@ -266,7 +259,7 @@ fill(38, 255, 0);
 rect(this.x, 400, 45,-this.y);
 };   
 
-var bit = new bit(15, 90, 100);
+var bit = new bit(15, 200, 100);
   
 var pipes = [];
 for (var i = 0; i < numPipes; i++) {  
@@ -332,7 +325,7 @@ rect(231,392,5,8);
     
     for (var i = 0; i < pipes.length; i++) {
         pipes[i].draw();
-        bit.checkForPipeTouch(pipes[i]);
+
         bit.checkForPipeScore(pipes[i]);
         pipes[i].x -= 1;
     }
@@ -377,3 +370,5 @@ mouseClicked = function() {
     
     
 };
+
+
