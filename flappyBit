@@ -111,7 +111,7 @@ drawFace(bitmojiX , bitmojiY, bitmojiHeight );
 var numPipes = 100;
 var score = 0;
 var currentScene= 0;
-var gameOver = 0; //0 = game needs to start, 1 = gameplay, 2 = game stops
+
 
 var drawPipes = function(){ 
 
@@ -161,21 +161,13 @@ var startButton = new Button({
     y: 300,
     label: "        Start",
     onClick: function() {
-        gameOver = 1;
-        currentScene = 1;
+currentScene = 1;
+
     }
 });
 
-var tryAgainButton = new Button ({
-    x: 130,
-    y: 167,
-    label: "    Try Again?",
-    onClick: function() {
-        gameOver = 0;
-        currentScene = 0;
-        
-    }
-        });
+
+     
 var Splash = function(){
     currentScene = 0;
     background(84, 188, 217);
@@ -185,7 +177,7 @@ var Splash = function(){
     startButton.draw();
     drawBit(98,204,39);
     drawBitmoji(276,229,55);
-
+ 
 };
 
 
@@ -194,10 +186,15 @@ var tryAgain = function(){
     background(84, 188, 217);
     fill(255, 255, 255);
     textSize(39);
-    text("Game Over", 100, 67);
+    text("Game Over", 100, 144);
     textSize(29);
-    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 34, 256);
-    tryAgainButton.draw();
+    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 27, 202);
+    text("Try Again?", 85, 325);  
+    fill(255, 255, 255);
+      line(147,361,147,381);
+    triangle(163,379,133,379,147,389);
+  
+
    
     };
 
@@ -225,10 +222,10 @@ bit.prototype.flap = function() {
 
 bit.prototype.fall = function() {
     
-    this.y += 4;
+    this.y += 2;
 };
 
-
+   
 bit.prototype.checkForPipeScore = function(pipe) {
     if((pipe.x>=this.x && pipe.x<= (this.x +50)) &&
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
@@ -239,9 +236,8 @@ bit.prototype.checkForPipeScore = function(pipe) {
 
 
 bit.prototype.checkForPipeTouch = function(pipe) {    
-    if ((this.x >= (pipe.x - 10) && this.x <= (pipe.x  + 30 )) &&
-        (this.y >= (pipe.y  - 10)  && this.y <= (pipe.y  + 30))) {
- gameOver = 2;
+    if ((pipe.x>=this.x && pipe.x<= (this.x -50)) &&
+    (pipe.y<=this.y && pipe.y<= (400+this.y))) {
 currentScene = 2;
    
     }
@@ -282,7 +278,7 @@ for (var i = 0; i < numPipes; i++) {
 
 
 var drawGame = function() {
-    
+    currentScene = 1;
     // static
     background(114, 197, 242);
     fill(88, 90, 99);
@@ -359,19 +355,26 @@ rect(231,392,5,8);
 
 
 draw = function() {
-     if (currentScene === 0 && gameOver === 0) {
+    
+     if (currentScene === 0 ) {
+        
          Splash();
      }
-    if (currentScene === 1 && gameOver === 1) {
+    if (currentScene === 1) {
         
         drawGame();
+        
     }
-
-      if (currentScene === 2 && gameOver === 2) {
-        tryAgain();
-       
+    if (currentScene === 2) { 
+        
+        tryAgain();  
     }
+    
   };
 
-
-
+mouseClicked = function() {
+    
+    startButton.handleMouseClick();
+    
+    
+};
