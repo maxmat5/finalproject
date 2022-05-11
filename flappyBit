@@ -30,7 +30,7 @@ var drawShirt= function(x,y,bitheight){
      quad(x+192*bitheight/100,y+129*bitheight/100,x+136*bitheight/100,y+59*bitheight           /100,x+63*bitheight/100,y+60*bitheight/100,x+16*bitheight/100,y+130*bitheight          /100);
     fill(237, 14, 14);
     textSize(50*bitheight/100);
-    text("AM",x+62*bitheight/100,y+13*bitheight/100);
+    text("AM",x+62*bitheight/100,y+62*bitheight/100);
 };
 var drawBit= function(x,y,bitheight){
     drawHead(x,y,bitheight);
@@ -140,7 +140,7 @@ Button.prototype.draw = function() {
     fill(0, 0, 0);
     textSize(19);
     textAlign(LEFT, TOP);
-    text(this.label, this.x+8, this.y+-9);
+    text(this.label, this.x+8, this.y+13);
 };
 
 Button.prototype.isMouseInside = function() {
@@ -173,7 +173,7 @@ var Splash = function(){
     background(114, 197, 242);
     fill(255, 255, 255);
     textSize(39);
-    text("Flappy Bit", 120, 6);
+    text("Flappy Bit", 120, 35);
      textSize(16);
     text("Move through the pipes without touching them! ",44,107);
     startButton.draw();
@@ -188,10 +188,12 @@ var tryAgain = function(){
     background(114, 197, 242);
     fill(255, 255, 255);
     textSize(39);
-    text("Game Over!",100, 50);
+    text("Game Over",100, 124);
     textSize(29);
-    text("WOW! You scored" +  " " + round(score/50) + " " + "points!", 27, 121);
-    text("Try Again?", 85, 325);  
+    text("You scored" +  " " + round(score/50) + " " + "points!", 70, 176);
+    text("Try Again?", 85, 317); 
+    line(147,380,146,356);
+    triangle(147,393,127,368,169,368);
   
   
 
@@ -205,14 +207,14 @@ var tryAgain = function(){
 var bit = function(x, y) {
     this.x = x;
     this.y = y;
-    this.img = drawBit;  
+    this.img = getImage("avatars/duskpin-ultimate");  
     this.sticks = 0;
 };
 
 bit.prototype.draw = function() {
     fill(186, 44, 44);
     this.y = constrain(this.y, 0, height-50);
-   drawBit(this.x, this.y, 15, 25);
+    image(this.img, this.x, this.y, 40, 40);
    
 };
 
@@ -231,9 +233,9 @@ bit.prototype.checkForPipeScore = function(pipe) {
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
       score++;
     }
-     else if((this.x>=pipe.x  && this.x<= pipe.x+45) && (pipe.y<this.y && pipe.y> (400-this.y))) { currentScene = 2; } 
+     else if((this.x>=pipe.x  && this.x<= pipe.x+70) && (pipe.y<this.y && pipe.y> (400-this.y))) { currentScene = 2; } 
    
-    else if((this.x>=pipe.x  && this.x<= pipe.x+45) && (pipe.y>this.y && pipe.y< (400-this.y))) {currentScene = 2; } 
+    else if((this.x>=pipe.x  && this.x<= pipe.x+70) && (pipe.y>this.y && pipe.y< (400-this.y))) {currentScene = 2; } 
     
 };
 
@@ -370,5 +372,4 @@ mouseClicked = function() {
     
     
 };
-
 
