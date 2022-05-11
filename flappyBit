@@ -108,8 +108,8 @@ drawFace(bitmojiX , bitmojiY, bitmojiHeight );
 
 }; //draws bitmoji
 
-var numPipes = 100;
-var score = 0;
+var numPipes = 1000; //number of pipes 
+var score = 0; //starting score              global variables
 var currentScene= 0; // 0 = splash screen, 1 = gameplay, 2 = try again screen
 
 
@@ -271,10 +271,10 @@ for (var i = 0; i < numPipes; i++) {
 } 
 
 
-var drawGame = function() { 
+var drawGame = function() {  //draws out game
     currentScene = 1;
     // static
-    background(114, 197, 242); // draws out game 
+    background(114, 197, 242);
     fill(88, 90, 99);
     noStroke();
 fill(255, 255, 255);
@@ -298,7 +298,7 @@ rect(197,281,64,120);
 fill(237, 214, 9);
 rect(211,301,5,8);
 rect(228,301,5,8);
-rect(244,301,5,8);
+rect(244,301,5,8);  //background design
 
 rect(211,318,5,8);
 rect(228,318,5,8);
@@ -333,10 +333,10 @@ rect(231,392,5,8);
     
     fill(20, 17, 20);
     textSize(18);
-    text("Score: " + round(score/50), 20, 30);
+    text("Score: " + round(score/50), 20, 30); //texts out score in the top left
     
     
-    if (keyIsPressed && keyCode === 0) {   
+    if (keyIsPressed && keyCode === 0) {  //if statement to see if bit is falling or rising  
         bit.flap();
     } else {
         bit.fall();
@@ -365,7 +365,7 @@ draw = function() { //draw function with 3 if statements to determine what scene
     
   };
 
-mouseClicked = function() {
+mouseClicked = function() { //mouse click function for the start screen 
     
     startButton.handleMouseClick();
     
