@@ -1,4 +1,4 @@
-var drawHead= function (x,y,bitheight)
+var drawHead= function (x,y,bitheight) //bitmojis
 {
     noStroke();
  fill(199, 131, 59);
@@ -110,10 +110,10 @@ drawFace(bitmojiX , bitmojiY, bitmojiHeight );
 
 var numPipes = 100;
 var score = 0;
-var currentScene= 0;
+var currentScene= 0; // 0 = splash screen, 1 = gameplay, 2 = try again screen
 
 
-var drawPipes = function(){ 
+var drawPipes = function(){ //designs pipes
 
 
 fill(38, 255, 0);
@@ -125,7 +125,7 @@ rect(293, 400, 45,-150);
  
 
 
-var Button = function(config) {
+var Button = function(config) { //button class
     this.x = config.x || 0;
     this.y = config.y || 0;
     this.width = config.width || 150;
@@ -168,14 +168,13 @@ currentScene = 1;
 
 
      
-var Splash = function(){
+var Splash = function(){ //splash screen
     currentScene = 0;
     background(114, 197, 242);
-    fill(76, 108, 237);
+    fill(255, 255, 255);
     textSize(39);
     text("Flappy Bit", 120, 35);
      textSize(16);
-      fill(235, 77, 85);
     text("Move through the pipes without touching them! ",44,107);
     startButton.draw();
     drawBit(98,204,39);
@@ -184,15 +183,15 @@ var Splash = function(){
 };
 
 
-var tryAgain = function(){
+var tryAgain = function(){ // try again screen 
     currentScene = 2;
     background(114, 197, 242);
     fill(255, 255, 255);
     textSize(39);
     text("Game Over",100, 124);
     textSize(29);
-    text("You scored" +  " " + round(score/24) + " " + "points!", 70, 176);
-    text("Try Again?", 85, 303); 
+    text("You scored" +  " " + round(score/50) + " " + "points!", 70, 176);
+    text("Try Again?", 85, 317); 
     line(147,380,146,356);
     triangle(147,393,127,368,169,368);
   
@@ -205,14 +204,14 @@ var tryAgain = function(){
 
 
 
-var bit = function(x, y) {
+var bit = function(x, y) { //character constructor 
     this.x = x;
     this.y = y;
     this.img = getImage("avatars/duskpin-ultimate");  
     this.sticks = 0;
 };
 
-bit.prototype.draw = function() {
+bit.prototype.draw = function() { //draws character
     fill(186, 44, 44);
     this.y = constrain(this.y, 0, height-50);
     image(this.img, this.x, this.y, 40, 40);
@@ -220,7 +219,7 @@ bit.prototype.draw = function() {
 };
 
 bit.prototype.flap = function() {
-    this.y -= 6;
+    this.y -= 4;
 };
 
 bit.prototype.fall = function() {
@@ -229,7 +228,7 @@ bit.prototype.fall = function() {
 };
 
    
-bit.prototype.checkForPipeScore = function(pipe) {
+bit.prototype.checkForPipeScore = function(pipe) { //checks for pipe score and pipe touch
     if((pipe.x>=this.x && pipe.x<= (this.x +50)) &&
     (pipe.y<=this.y && pipe.y<= (400-this.y))) {
       score++;
@@ -246,7 +245,7 @@ bit.prototype.checkForPipeScore = function(pipe) {
 
     
 
-var Pipes = function(x, y) { 
+var Pipes = function(x, y) {  //pipe constructor
     this.x = x;
     this.y = y;
    
@@ -262,20 +261,20 @@ fill(38, 255, 0);
 rect(this.x, 400, 45,-this.y);
 };   
 
-var bit = new bit(15, 200, 100);
+var bit = new bit(15, 200, 100); //new characte
   
 var pipes = [];
 for (var i = 0; i < numPipes; i++) {  
-    pipes.push(new Pipes(i * 150 + 114, random(50, 175)));
+    pipes.push(new Pipes(i * 150 + 100, random(50, 175)));
 
 
 } 
 
 
-var drawGame = function() {
+var drawGame = function() { 
     currentScene = 1;
     // static
-    background(114, 197, 242);
+    background(114, 197, 242); // draws out game 
     fill(88, 90, 99);
     noStroke();
 fill(255, 255, 255);
@@ -320,22 +319,20 @@ rect(244,367,5,8);
 rect(226,392,5,8);
 rect(231,392,5,8);
 
-    rectMode(CORNER);
-    // draw edge of lower road
  
     
     
     
-    for (var i = 0; i < pipes.length; i++) {
+    for (var i = 0; i < pipes.length; i++) { //draws out pipes on screen
         pipes[i].draw();
 
         bit.checkForPipeScore(pipes[i]);
-        pipes[i].x -= 2;
+        pipes[i].x -= 1;
     }
     
     fill(20, 17, 20);
     textSize(18);
-    text("Score: " + round(score/24), 20, 30);
+    text("Score: " + round(score/50), 20, 30);
     
     
     if (keyIsPressed && keyCode === 0) {   
@@ -349,7 +346,7 @@ rect(231,392,5,8);
     }; 
 
 
-draw = function() {
+draw = function() { //draw function with 3 if statements to determine what scene is to be shown 
     
      if (currentScene === 0 ) {
         
@@ -373,5 +370,6 @@ mouseClicked = function() {
     
     
 };
+
 
 
