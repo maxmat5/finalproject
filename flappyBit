@@ -171,10 +171,11 @@ currentScene = 1;
 var Splash = function(){
     currentScene = 0;
     background(114, 197, 242);
-    fill(255, 255, 255);
+    fill(76, 108, 237);
     textSize(39);
     text("Flappy Bit", 120, 35);
      textSize(16);
+      fill(235, 77, 85);
     text("Move through the pipes without touching them! ",44,107);
     startButton.draw();
     drawBit(98,204,39);
@@ -190,8 +191,8 @@ var tryAgain = function(){
     textSize(39);
     text("Game Over",100, 124);
     textSize(29);
-    text("You scored" +  " " + round(score/50) + " " + "points!", 70, 176);
-    text("Try Again?", 85, 317); 
+    text("You scored" +  " " + round(score/24) + " " + "points!", 70, 176);
+    text("Try Again?", 85, 303); 
     line(147,380,146,356);
     triangle(147,393,127,368,169,368);
   
@@ -219,7 +220,7 @@ bit.prototype.draw = function() {
 };
 
 bit.prototype.flap = function() {
-    this.y -= 4;
+    this.y -= 6;
 };
 
 bit.prototype.fall = function() {
@@ -265,7 +266,7 @@ var bit = new bit(15, 200, 100);
   
 var pipes = [];
 for (var i = 0; i < numPipes; i++) {  
-    pipes.push(new Pipes(i * 150 + 100, random(50, 175)));
+    pipes.push(new Pipes(i * 150 + 114, random(50, 175)));
 
 
 } 
@@ -329,12 +330,12 @@ rect(231,392,5,8);
         pipes[i].draw();
 
         bit.checkForPipeScore(pipes[i]);
-        pipes[i].x -= 1;
+        pipes[i].x -= 2;
     }
     
     fill(20, 17, 20);
     textSize(18);
-    text("Score: " + round(score/50), 20, 30);
+    text("Score: " + round(score/24), 20, 30);
     
     
     if (keyIsPressed && keyCode === 0) {   
@@ -372,4 +373,5 @@ mouseClicked = function() {
     
     
 };
+
 
