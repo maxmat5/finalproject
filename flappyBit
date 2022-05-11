@@ -86,7 +86,7 @@ fill(0, 0, 0);
 fill(0, 0, 0);
 rect(bitmojiX-42 * bitmojiHeight/100, bitmojiY-67 * bitmojiHeight/100, 84 * bitmojiHeight/100, 50 * bitmojiHeight/100, 100 * bitmojiHeight/100);
 fill(255, 0, 0);
-text("MM", 259,194,23,23);
+
 };
 
 
@@ -319,7 +319,8 @@ rect(244,367,5,8);
 rect(226,392,5,8);
 rect(231,392,5,8);
 
- 
+ drawBitmoji(246,265,24);
+ drawBit(194,257,17);
     
     
     
@@ -370,6 +371,4 @@ mouseClicked = function() {
     
     
 };
-
-
 
